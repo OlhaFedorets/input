@@ -3,6 +3,8 @@ import './App.css';
 import {FullInput} from "./components/FullInput";
 import {Simulate} from "react-dom/test-utils";
 import input = Simulate.input;
+import {Input} from "./components/Input";
+import {Button} from "./components/Button";
 
 function App() {
     let [message, setMessage] = useState([
@@ -11,21 +13,26 @@ function App() {
         {message: 'message3'}
     ]);
 
+    let [title, setTitle] = useState<string>('')
+
     const addMessage = (title: string) => {
         let newMessage = {message: title};
         setMessage([newMessage, ...message])
    }
 
+   const callBackButtonHandler = () => {
+        addMessage(title)
+       setTitle('')
+   }
+
+
     return (
         <div className="App">
-            {/*<div>*/}
-            {/*    <input/>*/}
-            {/*    <button>+</button>*/}
-            {/*</div>*/}
 
-            <FullInput
-                addMessage={addMessage}
-            />
+            {/*<FullInput addMessage={addMessage} />*/}
+
+            <Input title={title} setTitle={setTitle}/>
+            <Button name={'+'} callBack={callBackButtonHandler}/>
 
             {message.map((el, index) => {
                 return (
